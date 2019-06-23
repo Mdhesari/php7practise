@@ -1,0 +1,22 @@
+{
+  "name": "php7",
+  "version": "1.0.0",
+  "description": "This project is my personal working of php and I'll challenge myself and code with love, turning coffee into code that is extremely funny and enthusaistic for me, the next step is to learn laravel but for now I need to know perfectly about the php 7 functinality.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mdhesari/php7practise.git"
+  },
+  "keywords": [
+    "php7"
+  ],
+  "author": "Mohamad Fazel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mdhesari/php7practise/issues"
+  },
+  "homepage": "https://github.com/Mdhesari/php7practise#readme"
+}
