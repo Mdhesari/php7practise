@@ -1,7 +1,8 @@
 <?php
 
+require_once 'header.php';
 // strict_types affects type coercion
-declare (strict_types = 1);
+
 // date_default_timezone_set('Asia/Tehran');
 // echo date_default_timezone_get();
 
