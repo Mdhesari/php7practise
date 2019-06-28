@@ -7,9 +7,9 @@ require_once 'header.php';
 
 $myfile = fopen('myjs.txt', 'a+') or die('unable to open');
 
-while (!feof($myfile)) {
-    echo fgets($myfile) . '<br>';
-}
+// while (!feof($myfile)) {
+//     echo fgets($myfile) . '<br>';
+// }
 
 
 
