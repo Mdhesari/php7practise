@@ -1,5 +1,5 @@
 <?php
-
+// An interface is an empty shell
 interface Logger
 { 
     public function execute($message);
