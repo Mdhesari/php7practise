@@ -1,0 +1,10 @@
+{
+    "name": "md/php7practise",
+    "authors": [
+        {
+            "name": "Mohamad Fazel",
+            "email": "mdhesari99@gmail.com"
+        }
+    ],
+    "require": {}
+}
