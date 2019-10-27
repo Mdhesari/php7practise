@@ -1,10 +1,16 @@
 {
     "name": "md/php7practise",
+    "description": "OOP Projects in actions",
     "authors": [
         {
             "name": "Mohamad Fazel",
             "email": "mdhesari99@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
     "require": {}
 }
