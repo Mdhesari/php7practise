@@ -2,8 +2,8 @@
 
 require_once __DIR__ . './vendor/autoload.php';
 
-use App\Model\Users;
+use App\Controller\Users;
 
-$db = new Users;
+$user = new Users;
 
-var_dump($db->select()->get());
+$user->register();
