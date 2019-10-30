@@ -1,8 +1,9 @@
 <?php
 
-use App\Controller\HomeController;
+require_once __DIR__ . './vendor/autoload.php';
 
-$myhome = new HomeController;
+use App\Model\Users;
 
-var_dump($myhome);
- 
+$db = new Users;
+
+var_dump($db->select()->get());
