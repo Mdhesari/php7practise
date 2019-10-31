@@ -13,8 +13,8 @@ class Users extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') :
 
             $rules = [
-                'username' => 'required',
-                'emailOrNumber' => 'required',
+                'usernamed' => 'required',
+                'emailOrNumber' => 'required|emailnumber',
                 'password' => 'required',
                 'password_confirm' => 'required|confirm:password',
             ];
@@ -30,7 +30,7 @@ class Users extends Controller
             } else {
                 // user's data is not validated
 
-                echo 'false';
+                dd($validation->getErrors());
 
             }
 
