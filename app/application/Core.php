@@ -2,15 +2,37 @@
 
 namespace App\Application;
 
-class Core
+use App\Model\DB;
+
+class Core extends DB
 {
 
-    protected static $controller = "Home";
-    protected static $method = "index";
-    protected static $params = [];
+    /**
+     *  main app controller source 
+     * 
+     * @var string
+     */
+    protected static $controller            = "Home";
+
+    /**
+     *  action to open view
+     * 
+     * @var string
+     */
+    protected static $method                = "index";
+
+    /**
+     *  parameters passed in controller 
+     * 
+     * @var array
+     */
+    protected static $params                = [];
+
 
     /** 
      * Initialize the application
+     * 
+     * @return void
      */
     public static function init()
     {

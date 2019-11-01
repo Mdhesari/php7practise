@@ -30,9 +30,11 @@ class Users extends Controller
             $is_valid = $validation->make($_POST, $rules);
 
             if ($is_valid) {
+
                 // user can submit
-                echo 'true';
+                $this->view('success');
             } else {
+
                 // user's data is not validated
                 $errors = $validation->getErrors();
                 $this->view('register', compact('errors'));

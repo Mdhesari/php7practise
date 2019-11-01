@@ -5,30 +5,35 @@ namespace App\Controller;
 use App\Model\DB;
 
 
-class Controller extends DB
+class Controller
 {
 
-    protected $action = "Controller";
+    /**
+     * database variable
+     * 
+     * @var object
+     */
+    protected $db;
 
     public function __construct()
     {
-        $this->setAction();
+        $this->db = new DB;
     }
 
-    public function index()
+    public function index(): void
     {
 
         $this->view('index');
     }
 
-    public function view($location, $data = [])
+    public function view(string $location, array $data = []): void
     {
 
         if (empty($location)) {
             return;
         }
 
-       extract($data);
+        extract($data);
 
         $location = explode('/', $location);
 
@@ -55,12 +60,7 @@ class Controller extends DB
         }
     }
 
-    private function setAction()
-    {
-        $this->action = $this->getCalledClassName();
-    }
-
-    private function getCalledClassName()
+    private function getCalledClassName(): string
     {
         $class_name = \explode('\\', \get_called_class());
 
