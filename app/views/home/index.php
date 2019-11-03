@@ -1,5 +1,17 @@
 <?php get_head(); ?>
 
-<h1>Home index</h1>
+<main>
+    <h1 class="display-1 text-center">خوش آمدید.</h1>
+
+    <div class="container">
+        <section>
+            <div class="btn-group">
+                <a href="<?php echo URL_ROOT; ?>/users/login" class="btn btn-secondary">ورود</a>
+                <a href="<?php echo URL_ROOT; ?>/users/register" class="btn btn-secondary">ثبت نام</a>
+            </div>
+        </section>
+    </div>
+
+</main>
 
 <?php get_footer(); ?>

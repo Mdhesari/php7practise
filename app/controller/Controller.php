@@ -13,12 +13,6 @@ class Controller
      * 
      * @var object
      */
-    protected $db;
-
-    public function __construct()
-    {
-        $this->db = new DB;
-    }
 
     public function index(): void
     {
@@ -55,8 +49,8 @@ class Controller
 
             include_once $location;
         } else {
-
-            die('No file Exist.');
+            redirect();
+            // die('No file Exist.');
         }
     }
 

@@ -3,13 +3,20 @@
 namespace App\Controller;
 
 use App\Helper\Validation;
+use App\Model\User;
 
 class Users extends Controller
 {
 
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = new User;
+    }
+
     public function register()
     {
-
         $this->view('register');
     }
 
@@ -19,7 +26,7 @@ class Users extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $rules = [
-                'usernamed' => 'required',
+                'username' => 'required',
                 'emailOrNumber' => 'required|emailnumber',
                 'password' => 'required',
                 'password_confirm' => 'required|confirm:password',

@@ -78,5 +78,7 @@ class Core extends DB
             $url = explode('/', $url);
             return $url;
         }
+
+        return [];
     }
 }

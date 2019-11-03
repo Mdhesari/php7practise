@@ -11,4 +11,8 @@ trait Properties
     protected $config;
 
     protected $stmt;
+
+    protected $errros = [];
+
+    protected $data = [];
 }

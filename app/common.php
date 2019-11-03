@@ -22,6 +22,21 @@ if (!function_exists('get_footer')) {
     }
 }
 
+if (!function_exists('redirect')) {
+    function redirect($url = URL_ROOT)
+    {
+
+        $pattern = "/^htt(p|s):\/\//i";
+
+        if (!preg_match($pattern, $url)) {
+
+            $url = "http://" . $url;
+        }
+
+        header('Location: ' . $url);
+    }
+}
+
 function print_array($errors)
 {
 
