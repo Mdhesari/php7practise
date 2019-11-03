@@ -1,7 +1,17 @@
-<?php get_head();
+<?php
+
+use \Plasticbrain\FlashMessages\FlashMessages;
+
+$flash = new FlashMessages;
+
+get_head();
 ?>
 
 <main>
+
+    <div>
+<?php echo $flash->display(); ?>
+    </div>
 
     <div class="container">
 

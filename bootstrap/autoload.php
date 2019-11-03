@@ -4,6 +4,8 @@
  * Autoload every file that is on app directory
  */
 
+ if(!session_id()) @session_start();
+
 define('APP_ROOT', dirname(__DIR__) . '/app');
 define('URL_ROOT','http://localhost/php7practise');
 

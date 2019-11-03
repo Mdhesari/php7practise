@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Helper\Validation;
 use App\Model\User;
+use \Plasticbrain\FlashMessages\FlashMessages;
 
 class Users extends Controller
 {
@@ -17,6 +18,11 @@ class Users extends Controller
 
     public function register()
     {
+
+        $flash = new FlashMessages;
+
+        $flash->error('This is a error message.');
+
         $this->view('register');
     }
 
