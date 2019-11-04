@@ -21,14 +21,20 @@ class Users extends Controller
         $this->view('register');
     }
 
-    public function submit()
+    public function success()
+    {
+
+        $this->view('success');
+    }
+
+public function submit()
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $rules = [
                 'username' => 'required',
-                'emailOrNumber' => 'required|emailnumber|unique',
+                'emailOrNumber' => 'required|emailnumber|unique:users__email',
                 'password' => 'required',
                 'password_confirm' => 'required|confirm:password',
             ];
@@ -48,7 +54,6 @@ class Users extends Controller
                     'email' => strtolower($_POST['emailOrNumber']),
                     'password' => $password
                 ]);
-                dd($result);
 
                 if ($result) {
 
@@ -58,8 +63,6 @@ class Users extends Controller
                         'مشکلی در انجام عملیات در پایگاه داده بوجود آمده، اخطار های زیر را چک کنید و در صورت درستی با پشتیبانی تماس بگیرید.' .
                             '<ul><li>حتما چک کنید که فیلد ایمیل یا شماره تماس توسط شما یا شخص دیگری وارد نشده باشد.</li></ul>'
                     );
-
-                    dd($this->user->checkErrors());
 
                     redirect('/users/register', true);
                 }

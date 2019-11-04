@@ -2,6 +2,8 @@
 
 namespace App\Helper;
 
+
+
 class Validation
 {
 
@@ -86,6 +88,21 @@ class Validation
         if (empty($value)) {
             $this->generateError($item, 'پر کردن فیلد %s الزامی است.');
             return false;
+        }
+
+        return true;
+    }
+
+    private function unique($item, $value, $param)
+    {
+        $table = "";
+        $__position = strpos($param, '__');
+        if ($__position !== false) {
+
+            $table = substr($param, 0, $__position);
+            $item = substr($param, $__position + 2);
+        } else {
+            $table = $param;
         }
 
         return true;

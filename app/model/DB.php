@@ -26,7 +26,7 @@ class DB
 
         } catch (Exception $error) {
 
-            die("Database Error Occured : " . $error->getMessage());
+            dd("Database Error Occured : " . $error->getMessage());
         }
     }
 
@@ -52,12 +52,15 @@ class DB
         $this->table = strtolower($class_name[count($class_name) - 1]);
     }
 
-
-    public function select()
+    public function select($table = null, $to_be_selected = "*")
     {
 
-        $this->stmt =  $this->pdo->prepare("SELECT *
-                             FROM {$this->table}");
+        if ($table === null) {
+
+            $table = $this->table;
+        }
+
+        $this->query = "SELECT {$to_be_selected} FROM {$table}";
 
         return $this;
     }
@@ -70,6 +73,11 @@ class DB
 
     public function get()
     {
+        if ($this->query === "") {
+            return false;
+        }
+
+        $this->pdo->prepare($this->query);
         $this->done();
 
         return $this->stmt->fetchAll(PDO::FETCH_BOTH);
@@ -114,7 +122,9 @@ class DB
             $i++;
         }
 
-        $this->stmt = $this->pdo->prepare($query);
+        $this->query = $query;
+
+        $this->stmt = $this->pdo->prepare($this->query);
 
 
         foreach ($data as $key => $value) {

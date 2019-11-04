@@ -13,7 +13,7 @@ return [
             'database' => 'irblog',
             'password' => '',
             'host' => 'localhost',
-            'charset' => 'utf8mb4'
+            'charset' => 'utf8'
         ]
     ]
 

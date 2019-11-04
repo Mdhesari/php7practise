@@ -4,7 +4,7 @@ namespace App\Application\traits\database;
 trait Properties
 {
 
-    protected $pdo;
+    protected $pdo = null;
 
     protected $table;
 
@@ -15,4 +15,6 @@ trait Properties
     protected $errros = [];
 
     protected $data = [];
+
+    protected $query = "";  
 }
