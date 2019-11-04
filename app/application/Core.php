@@ -3,6 +3,7 @@
 namespace App\Application;
 
 use App\Model\DB;
+use App\Application\Session;
 
 class Core extends DB
 {
@@ -61,6 +62,8 @@ class Core extends DB
         self::$params = $url ? array_values($url) : [];
 
         call_user_func_array([self::$controller, self::$method], self::$params);
+
+        return self::end();
     }
 
     /**
@@ -80,5 +83,10 @@ class Core extends DB
         }
 
         return [];
+    }
+
+    public static function end()
+    {
+        Session::add('last_url', get_current_url());
     }
 }

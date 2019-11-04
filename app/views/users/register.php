@@ -7,7 +7,9 @@ get_head();
 
     <div class="container">
 
-        <?php echo flashMessage()->display(); ?>
+        <?php if (flashMessage()->hasErrors()) : ?>
+            <?php echo flashMessage()->display(); ?>
+        <?php endif; ?>
 
         <div class="jumbotron text-center">
             سلام خوش آمدید.
@@ -23,7 +25,7 @@ get_head();
 
             <div class="form-group">
                 <label for="username">نام و نام خانوادگی</label>
-                <input id="username" name="username" class="form-control" type="text">
+                <input id="username" name="username" class="form-control" value="<?= old('name'); ?>" type="text">
             </div>
             <div class="form-group">
                 <label for="emailOrNumber">ایمیل یا شماره همراه</label>

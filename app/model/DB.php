@@ -120,10 +120,7 @@ class DB
         foreach ($data as $key => $value) {
             $this->bind($key, $value);
         }
-
-        if (!$this->done()) {
-            dd($this->checkErrors());
-        }
+        return $this->done();
     }
 
     protected function bind($key, $value, $type = null)

@@ -1,7 +1,5 @@
 <?php
 
-use \Plasticbrain\FlashMessages\FlashMessages;
-
 if (!function_exists('dd')) {
     function dd($var = null)
     {
@@ -25,22 +23,19 @@ if (!function_exists('get_footer')) {
 }
 
 if (!function_exists('redirect')) {
-    function redirect($url = URL_ROOT)
+    function redirect($url = URL_ROOT, $from_root = false)
     {
+        if ($from_root !== false) {
+            $url = URL_ROOT . $url;
+        }
 
         $pattern = "/^htt(p|s):\/\//i";
 
-        $pattern_2 = "/^\//i";
-
-        if (preg_match($pattern_2, $url)) {
-
-            $url = URL_ROOT . $url;
-        } elseif (!preg_match($pattern, $url)) {
+        if (!preg_match($pattern, $url)) {
 
             $url = "http://" . $url;
         }
 
-        redirect($url);
         header('Location: ' . $url);
     }
 }
@@ -49,14 +44,15 @@ if (!function_exists('redirect_back')) {
 
     function redirect_back()
     {
-        redirect($_SERVER['HTTP_REFERER']);
+
+        redirect(\App\Application\Session::get('last_url'));
     }
 }
 
 if (!function_exists('flashMessage')) {
     function flashMessage()
     {
-        return new FlashMessages;
+        return new \Plasticbrain\FlashMessages\FlashMessages;
     }
 }
 
@@ -66,6 +62,13 @@ if (!function_exists('get_current_url')) {
         $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         return $link;
+    }
+}
+
+if (!function_exists('old')) {
+    function old($key)
+    {
+        return isset($_POST[$key]) ? $_POST[$key] : '';
     }
 }
 
