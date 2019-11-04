@@ -1,19 +1,13 @@
 <?php
 
-use \Plasticbrain\FlashMessages\FlashMessages;
-
-$flash = new FlashMessages;
-
 get_head();
 ?>
 
 <main>
 
-    <div>
-<?php echo $flash->display(); ?>
-    </div>
-
     <div class="container">
+
+        <?php echo flashMessage()->display(); ?>
 
         <div class="jumbotron text-center">
             سلام خوش آمدید.
