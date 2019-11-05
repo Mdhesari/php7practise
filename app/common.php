@@ -72,6 +72,13 @@ if (!function_exists('old')) {
     }
 }
 
+function request()
+{
+    $request = new App\Helper\Request;
+
+    return $request;
+}
+
 function print_array($errors)
 {
 

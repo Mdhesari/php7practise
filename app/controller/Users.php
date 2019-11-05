@@ -27,10 +27,10 @@ class Users extends Controller
         $this->view('success');
     }
 
-public function submit()
+    public function submit()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (request()->isPost()) {
 
             $rules = [
                 'username' => 'required',
@@ -41,7 +41,7 @@ public function submit()
 
             $validation = new Validation();
 
-            $is_valid = $validation->make($_POST, $rules);
+            $is_valid = $validation->make(request()->all(), $rules);
 
             if ($is_valid) {
                 // user can submit
