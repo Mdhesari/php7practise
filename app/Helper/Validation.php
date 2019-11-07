@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use App\Model\DB;
 
 
 class Validation
@@ -103,6 +104,14 @@ class Validation
             $item = substr($param, $__position + 2);
         } else {
             $table = $param;
+        }
+
+        $db = new DB;
+        $user_found = $db->from($table)->find($item, $value);
+
+        if(is_null($user_found)){
+            $this->generateError($item, 'قبلا یک حساب کاربری با این %s ساخته شده است.');
+            return false;
         }
 
         return true;

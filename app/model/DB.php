@@ -52,7 +52,7 @@ class DB
 
     private function setConfig()
     {
-        $this->config = require_once __DIR__ . '/../config.php';
+        $this->config = include __DIR__ . '/../config.php';
     }
 
     private function setTable()
@@ -81,8 +81,10 @@ class DB
 
         if (is_array($param))
             $args = $param;
-        else
+        else {
+            unset($param);
             $args = func_get_args();
+        }
 
 
         $this->select_tables = $args;
@@ -93,6 +95,18 @@ class DB
     {
         $this->table = $table;
         return $this;
+    }
+
+    public function find($name, $value)
+    {
+
+        $this->select()->where($name, $value);
+    }
+
+    public function first(){
+        $this->limit(1)->result();
+        $this->fetchType = 'fetch';
+        return $this->fetch();
     }
 
     protected function wheres(string $clause)

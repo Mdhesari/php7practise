@@ -14,15 +14,13 @@ class Users extends Controller
 
     public function __construct()
     {
-        // $this->user = new User;
+        $this->user = new User;
     }
 
     public function register()
     {
-        // $this->user->select()->where('email', 'mdhesari99@gmail.com')->limit(5)->where("id", 1)->get();
+        $this->user->select()->where('email', 'mdhesari99@gmail.com')->limit(5)->where("id", 1)->get();
 
-        $db = new DB();
-        dd($db->all());
         $this->view('register');
     }
 
