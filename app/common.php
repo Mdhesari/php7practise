@@ -72,11 +72,14 @@ if (!function_exists('old')) {
     }
 }
 
-function request()
+function request($field = null, $post = true)
 {
     $request = new App\Helper\Request;
+    if (is_null($field)) {
+        return $request;
+    }
 
-    return $request;
+    return $request->input($field, $post);
 }
 
 function print_array($errors)

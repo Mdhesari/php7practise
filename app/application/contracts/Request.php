@@ -10,5 +10,4 @@ interface Request
 
     public function isPost(): bool;
 
-    public function getTypeArr(): array;
 }

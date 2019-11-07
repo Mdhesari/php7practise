@@ -12,22 +12,32 @@ class DB
 
     public function __construct()
     {
-
         $this->setupClass();
 
         $database = $this->config['connection']['mysql'];
 
         $dsn = "mysql:host={$database['host']};dbname={$database['database']};charset={$database['charset']}";
 
+        $options = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false
+        ];
+
         try {
 
-            $this->pdo = new PDO($dsn, $database['user'], $database['password']);
+            $this->pdo = new PDO($dsn, $database['user'], $database['password'], $options);
             // $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        } catch (Exception $error) {
+        } catch (\PDOException $error) {
 
             dd("Database Error Occured : " . $error->getMessage());
         }
+    }
+
+    public function __destruct()
+    {
+        $this->pdo = null;
     }
 
     private function setupClass()
@@ -52,7 +62,7 @@ class DB
         $this->table = strtolower($class_name[count($class_name) - 1]);
     }
 
-    public function select($table = null, $to_be_selected = "*")
+    public function _select(string $table = null, string $to_be_selected = "*"): object
     {
 
         if ($table === null) {
@@ -65,25 +75,164 @@ class DB
         return $this;
     }
 
+    public function select($param = null)
+    {
+        $args = [];
+
+        if (is_array($param))
+            $args = $param;
+        else
+            $args = func_get_args();
+
+
+        $this->select_tables = $args;
+        return $this;
+    }
+
+    public function from(string $table): object
+    {
+        $this->table = $table;
+        return $this;
+    }
+
+    protected function wheres(string $clause)
+    {
+        $this->where_clause[] = $clause;
+        return $this;
+    }
+
+    public function where(string $name, $value, string $operator = "=")
+    {
+
+        $this->wheres("$name $operator :$name");
+
+        if (strtolower($operator) == 'like') {
+            $value = "%" . $value . "%";
+        }
+
+        $this->bind_arr[$name] = $value;
+
+        return $this;
+    }
+
+    public function orWhere(string $name, $value, string $operator = "=")
+    {
+
+        $this->where_type = "OR";
+
+        return $this->where($name, $value, $operator);
+    }
+
+    public function result()
+    {
+        $this->query[] = "SELECT";
+
+        if (empty($this->select_tables)) {
+
+            $this->query[] = "*";
+        } else {
+
+            $this->query[] = join(" ,", $this->select_tables);
+        }
+
+        $this->query[] = "FROM";
+
+        $this->query[] = $this->table;
+
+        if (!empty($this->where_clause)) {
+
+            $this->addWhereToQuery();
+        }
+
+        if (!is_null($this->limit)) {
+            $this->query[] = "LIMIT";
+            $this->query[] = $this->limit;
+        }
+
+        $this->query = join(" ", $this->query);
+
+        $this->stmt = $this->pdo->prepare($this->query);
+
+        $this->bindValues();
+
+        $this->done();
+
+        return $this;
+    }
+
+    protected function addWhereToQuery()
+    {
+        $this->query[] = "WHERE";
+
+        $this->query[] = join(" {$this->where_type} ", $this->where_clause);
+
+        return $this;
+    }
+
     public function checkErrors()
     {
         $this->errors = $this->stmt->errorInfo();
         return $this->errors;
     }
 
-    public function get()
+    public function limit($limit = 1)
     {
-        if ($this->query === "") {
-            return false;
-        }
 
-        $this->pdo->prepare($this->query);
-        $this->done();
-
-        return $this->stmt->fetchAll(PDO::FETCH_BOTH);
+        $this->limit = $limit;
+        return $this;
     }
 
-    public function insert($data = [])
+    public function get()
+    {
+
+        $this->result();
+
+        return $this->fetch();
+    }
+
+    protected function fetch()
+    {
+
+        return $this->stmt->{($this->fetchType == 'fetchAll' ? 'fetchAll' : 'fetch')}($this->fetchMode);
+    }
+
+    public function all()
+    {
+
+        return $this->select()->get();
+    }
+
+    protected function bindValues()
+    {
+
+        foreach ($this->bind_arr as $key => $value) {
+            $this->bind($key, $value);
+        }
+    }
+
+    protected function bind($key, $value, $type = null)
+    {
+
+        if (is_null($type)) {
+            switch (true) {
+                case is_int($value):
+                    $type = PDO::PARAM_INT;
+                    break;
+                case is_bool($value):
+                    $type = PDO::PARAM_BOOL;
+                    break;
+                case is_null($value):
+                    $type = PDO::PARAM_NULL;
+                    break;
+                default:
+                    $type = PDO::PARAM_STR;
+            }
+        }
+
+        $this->stmt->bindValue($key, $value, $type);
+    }
+
+    public function create($data = [])
     {
 
         if (count($data) == 0)
@@ -130,29 +279,24 @@ class DB
         foreach ($data as $key => $value) {
             $this->bind($key, $value);
         }
+
         return $this->done();
     }
 
-    protected function bind($key, $value, $type = null)
+    public function insert($data = [])
     {
 
-        if (is_null($type)) {
-            switch (true) {
-                case is_int($value):
-                    $type = PDO::PARAM_INT;
-                    break;
-                case is_bool($value):
-                    $type = PDO::PARAM_BOOL;
-                    break;
-                case is_null($value):
-                    $type = PDO::PARAM_NULL;
-                    break;
-                default:
-                    $type = PDO::PARAM_STR;
-            }
-        }
+        $field = join(', ', array_keys($data));
+        $param = ':' . join(', :', array_keys($data));
 
-        $this->stmt->bindValue($key, $value, $type);
+        $this->stmt = $this->pdo->prepare("INSERT INTO {$this->table} ($field)
+                                       VALUES ($param)");
+
+        $this->bind_arr = $data;
+
+        $this->bindValues();
+
+        return $this->done();
     }
 
     private function done()

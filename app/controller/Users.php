@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Helper\Validation;
+use Carbon\Carbon;
 use App\Model\User;
+use App\Model\DB;
 
 class Users extends Controller
 {
@@ -12,12 +14,15 @@ class Users extends Controller
 
     public function __construct()
     {
-        $this->user = new User;
+        // $this->user = new User;
     }
 
     public function register()
     {
+        // $this->user->select()->where('email', 'mdhesari99@gmail.com')->limit(5)->where("id", 1)->get();
 
+        $db = new DB();
+        dd($db->all());
         $this->view('register');
     }
 
@@ -42,23 +47,24 @@ class Users extends Controller
             $validation = new Validation();
 
             $is_valid = $validation->make(request()->all(), $rules);
-
             if ($is_valid) {
                 // user can submit
-
-                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $password = password_hash(request('password'), PASSWORD_BCRYPT);
 
                 // insert into db
                 $result = $this->user->insert([
-                    'name' => $_POST['username'],
-                    'email' => strtolower($_POST['emailOrNumber']),
-                    'password' => $password
+                    'name' => request('username'),
+                    'email' => strtolower(request('emailOrNumber')),
+                    'password' => $password,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ]);
 
                 if ($result) {
 
-                    redirect('/users/success', true);
+                    redirect('', true);
                 } else {
+
                     flashMessage()->error(
                         'مشکلی در انجام عملیات در پایگاه داده بوجود آمده، اخطار های زیر را چک کنید و در صورت درستی با پشتیبانی تماس بگیرید.' .
                             '<ul><li>حتما چک کنید که فیلد ایمیل یا شماره تماس توسط شما یا شخص دیگری وارد نشده باشد.</li></ul>'

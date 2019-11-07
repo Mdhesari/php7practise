@@ -10,14 +10,14 @@ class Request implements RequestInteface
     public function input(string $field, bool $post = true)
     {
 
-        $arr = $this->get($post);
+        $arr = $this->getTypeArr($post);
 
         return isset($arr[$field]) ? htmlspecialchars($arr[$field]) : "";
     }
 
     public function all(bool $post = true): array
     {
-        $arr = $this->get($post);
+        $arr = $this->getTypeArr($post);
 
         return array_map('htmlspecialchars', $arr);
     }
