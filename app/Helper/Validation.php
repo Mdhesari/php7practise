@@ -94,7 +94,36 @@ class Validation
         return true;
     }
 
+    private function mustExist($item, $value, $param)
+    {
+        $table = $this->__set__table__key($item, $param);
+
+        $db = new DB;
+        $user_found = $db->from($table)->find($item, $value);
+        if (is_null($user_found)) {
+            $this->generateError($item, 'شما هنوز ثبت نام نکرده اید! %s شما در سیستم موجود نیست.');
+            return false;
+        }
+
+        return true;
+    }
+
+
     private function unique($item, $value, $param)
+    {
+        $table = $this->__set__table__key($item, $param);
+
+        $db = new DB;
+        $user_found = $db->from($table)->find($item, $value);
+        if ($user_found !== false) {
+            $this->generateError($item, 'قبلا یک حساب کاربری با این %s ساخته شده است.');
+            return false;
+        }
+
+        return true;
+    }
+
+    private function __set__table__key(&$item, &$param)
     {
         $table = "";
         $__position = strpos($param, '__');
@@ -106,16 +135,9 @@ class Validation
             $table = $param;
         }
 
-        $db = new DB;
-        $user_found = $db->from($table)->find($item, $value);
-
-        if(is_null($user_found)){
-            $this->generateError($item, 'قبلا یک حساب کاربری با این %s ساخته شده است.');
-            return false;
-        }
-
-        return true;
+        return $table;
     }
+
 
     private function confirm($item, $value, $param)
     {

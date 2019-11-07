@@ -7,12 +7,12 @@ get_head();
 
     <div class="container">
 
-        <?php if (flashMessage()->hasErrors()) : ?>
+        <?php if (flashMessage()->hasMessages()) : ?>
             <?php echo flashMessage()->display(); ?>
         <?php endif; ?>
 
         <div class="jumbotron text-center">
-            ثبت نام کاربران
+            ورود کاربران
         </div>
 
         <?php if (isset($errors)) : ?>
@@ -21,12 +21,8 @@ get_head();
             </div>
         <?php endif; ?>
 
-        <form method="post" action="<?php echo URL_ROOT; ?>/users/register">
+        <form method="post" action="<?php echo URL_ROOT; ?>/users/login">
 
-            <div class="form-group">
-                <label for="username">نام و نام خانوادگی</label>
-                <input id="username" name="username" class="form-control" value="<?= old('name'); ?>" type="text">
-            </div>
             <div class="form-group">
                 <label for="emailOrNumber">ایمیل یا شماره همراه</label>
                 <input id="emailOrNumber" name="emailOrNumber" type="text" class="form-control">
@@ -35,12 +31,9 @@ get_head();
                 <label for="password">رمز</label>
                 <input id="password" name="password" type="password" class="form-control">
             </div>
-            <div class="form-group">
-                <label for="password_confirm">تکرار رمز</label>
-                <input id="password_confirm" name="password_confirm" type="password" class="form-control">
-            </div>
 
-            <input type="submit" value="ثبت نام">
+
+            <input type="submit" value="ورود">
 
         </form>
 

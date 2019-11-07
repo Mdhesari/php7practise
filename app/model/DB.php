@@ -100,7 +100,7 @@ class DB
     public function find($name, $value)
     {
 
-        $this->select()->where($name, $value);
+        return $this->select()->where($name, $value)->first();
     }
 
     public function first(){

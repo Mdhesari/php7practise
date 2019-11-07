@@ -36,10 +36,10 @@
                             <a href="#">خروج از حساب کاربری</a>
                         </li>
                         <li>
-                            <a href="#">ورود</a>
+                            <a href="<?php echo URL_ROOT; ?>/users/login">ورود</a>
                         </li>
                         <li>
-                            <a href="#">ثبت نام</a>
+                            <a href="<?php echo URL_ROOT; ?>/users/register">ثبت نام</a>
                         </li>
                     </ul>
                 </div>
