@@ -27,11 +27,18 @@ get_head();
                 <label for="emailOrNumber">ایمیل یا شماره همراه</label>
                 <input id="emailOrNumber" name="emailOrNumber" type="text" class="form-control">
             </div>
+
             <div class="form-group">
                 <label for="password">رمز</label>
                 <input id="password" name="password" type="password" class="form-control">
             </div>
 
+            <div class="form-group">
+                <label for="remember">
+                    مرا به خاطر بسپار
+                    <input id="remember" type="checkbox" name="remember" checked>
+                </label>
+            </div>
 
             <input type="submit" value="ورود">
 

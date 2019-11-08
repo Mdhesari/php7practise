@@ -40,6 +40,7 @@ class Users extends Controller
 
             $this->authorize();
         } else {
+
             $this->view('login');
         }
     }
@@ -57,10 +58,27 @@ class Users extends Controller
         $is_valid = $validation->make(request()->all(), $rules);
 
         if ($is_valid) {
-            // true
-            $user = $this->user->find('email', request('emailOrNumber'));
+            // need to authroize by password
 
-            
+            $user = $this->user->find('email', request('emailOrNumber'));
+            if (password_verify(request('password'), $user->password)) {
+
+                $remember = false;
+
+                if (!empty(request('remember'))) {
+                    $remember = true;
+                }
+
+
+                dd($remember);
+
+
+                return 'true';
+            } else {
+
+                flashMessage()->error('اطلاعات کاربری صحیح نیست.');
+                $this->view('login');
+            }
         } else {
 
             // user's data is not validated

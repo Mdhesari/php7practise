@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use App\Application\traits\database\Properties;
-use Exception;
 use PDO;
 
 class DB
@@ -103,7 +102,8 @@ class DB
         return $this->select()->where($name, $value)->first();
     }
 
-    public function first(){
+    public function first()
+    {
         $this->limit(1)->result();
         $this->fetchType = 'fetch';
         return $this->fetch();
