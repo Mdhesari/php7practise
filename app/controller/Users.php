@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Helper\Validation;
 use Carbon\Carbon;
 use App\Model\User;
-use App\Model\DB;
 
 class Users extends Controller
 {
@@ -17,8 +16,18 @@ class Users extends Controller
         $this->user = new User;
     }
 
+    /**
+     * register
+     *
+     * @return void
+     */
     public function register()
     {
+        if (auth()->check()) {
+
+            redirect();
+        }
+
         if (request()->isPost()) {
 
             $this->submit();
@@ -28,14 +37,47 @@ class Users extends Controller
         }
     }
 
+    /**
+     * success
+     *
+     * @return void
+     */
     public function success()
     {
 
+        if (auth()->check()) {
+
+            redirect();
+        }
         $this->view('success');
     }
 
+    /**
+     * logout
+     *
+     * @return void
+     */
+    public function logout()
+    {
+
+        auth()->logout();
+
+        redirect();
+    }
+
+    /**
+     * 
+     *
+     * @return void
+     */
     public function login()
     {
+
+        if (auth()->check()) {
+
+            redirect();
+        }
+
         if (request()->isPost()) {
 
             $this->authorize();
@@ -45,6 +87,11 @@ class Users extends Controller
         }
     }
 
+    /**
+     * authorize
+     *
+     * @return void
+     */
     private function authorize()
     {
 
@@ -66,14 +113,14 @@ class Users extends Controller
                 $remember = false;
 
                 if (!empty(request('remember'))) {
-                    $remember = true ;
+                    $remember = true;
                 }
 
+                auth()->login($user, $remember);
 
-                dd($remember);
+                flashMessage()->success('با موفقیت وارد حساب کاربری خود شدید.');
 
-
-                return 'true';
+                redirect();
             } else {
 
                 flashMessage()->error('اطلاعات کاربری صحیح نیست.');
@@ -97,14 +144,18 @@ class Users extends Controller
         }
     }
 
-    // post request
+    /**
+     * post request
+     *
+     * @return void
+     */
     private function submit()
     {
 
         $rules = [
             'username' => 'required',
             'emailOrNumber' => 'required|emailnumber|unique:users__email',
-            'password' => 'required',
+            'password' => 'required|min:6',
             'password_confirm' => 'required|confirm:password',
         ];
 
@@ -114,11 +165,11 @@ class Users extends Controller
         if ($is_valid) {
             // user can submit
             $password = password_hash(request('password'), PASSWORD_BCRYPT);
-
+            $email = strtolower(request('emailOrNumber'));
             // insert into db
             $result = $this->user->insert([
                 'name' => request('username'),
-                'email' => strtolower(request('emailOrNumber')),
+                'email' => $email,
                 'password' => $password,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -127,6 +178,11 @@ class Users extends Controller
             if ($result) {
 
                 flashMessage()->success('حساب کاربری شما با موفقیت ساخته شده است.');
+
+                $user = (new User)->find('email', $email);
+
+                auth()->login($user, false);
+
                 redirect();
             } else {
 

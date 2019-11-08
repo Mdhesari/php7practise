@@ -126,3 +126,22 @@ function print_array($errors)
             echo "<p>{$error}</p>";
     }
 }
+
+function auth(){
+
+    return new App\Helper\Auth;
+}
+
+function myrandom($length = 16)
+{
+    $str = '';
+
+    $bytes = base64_encode(random_bytes($length));
+
+    $bytes = str_replace(['/', '+', '='], '', $bytes);
+
+    $str .= substr($bytes, 0, $length);
+
+    return $str;
+}
+

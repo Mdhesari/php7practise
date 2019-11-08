@@ -41,6 +41,7 @@ class Validation
                 $methodName = \ucfirst($rule);
 
                 $value = isset($data[$item]) ? $data[$item] : null;
+
                 if (\method_exists($this, $methodName) && $value !== null) {
 
                     $validate_result = $this->{$methodName}($item, $value, $param);
@@ -100,7 +101,7 @@ class Validation
 
         $db = new DB;
         $user_found = $db->from($table)->find($item, $value);
-        if (is_null($user_found)) {
+        if ($user_found === false) {
             $this->generateError($item, 'شما هنوز ثبت نام نکرده اید! %s شما در سیستم موجود نیست.');
             return false;
         }
@@ -117,6 +118,28 @@ class Validation
         $user_found = $db->from($table)->find($item, $value);
         if ($user_found !== false) {
             $this->generateError($item, 'قبلا یک حساب کاربری با این %s ساخته شده است.');
+            return false;
+        }
+
+        return true;
+    }
+
+    private function min($item, $value, $param)
+    {
+        if (strlen($value) < $param) {
+
+            $this->generateError($param, 'حداقل کاراکتر برای رمز عبور %s میباشد.');
+            return false;
+        }
+
+        return true;
+    }
+
+    private function max($item, $value, $param)
+    {
+        if (strlen($value) > $param) {
+
+            $this->generateError($param, 'حداکثر کاراکتر برای رمز عبور %s میباشد.');
             return false;
         }
 

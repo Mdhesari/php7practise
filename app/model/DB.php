@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Application\traits\database\Properties;
+use Exception;
 use PDO;
 
 class DB
@@ -37,7 +38,7 @@ class DB
     public function __destruct()
     {
         $this->pdo = null;
-    }
+        }
 
     private function setupClass()
     {
@@ -139,6 +140,7 @@ class DB
 
     public function result()
     {
+        $this->query = [];
         $this->query[] = "SELECT";
 
         if (empty($this->select_tables)) {
@@ -293,6 +295,56 @@ class DB
         foreach ($data as $key => $value) {
             $this->bind($key, $value);
         }
+
+        return $this->done();
+    }
+
+    private function fieldsForUpdate($data = [])
+    {
+
+        $fields = [];
+
+        foreach ($data as $key => $name) {
+
+            $fields[] = "{$key} = :{$key}";
+
+            $this->bind_arr[$key] = $name;
+        }
+
+        return join(' ,', $fields);
+    }
+
+    public function update($data = [])
+    {
+
+        if (count($data) < 1) {
+
+            return false;
+        }
+
+        $this->query[] = "UPDATE";
+
+        $this->query[] = $this->table;
+
+        $this->query[] = "SET";
+
+        $fields = $this->fieldsForUpdate($data);
+
+        $this->query[] = $fields;
+
+        if (!empty($this->where_clause)) {
+
+            $this->addWhereToQuery();
+        } else {
+
+            throw new Exception('No where clause on update db!');
+        }
+
+        $this->query = join(' ', $this->query);
+
+        $this->stmt = $this->pdo->prepare($this->query);
+
+        $this->bindValues();
 
         return $this->done();
     }

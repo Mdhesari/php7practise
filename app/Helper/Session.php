@@ -62,12 +62,14 @@ class Session implements Repository
      */
     public function forget(string $key): bool
     {
-        unset($key);
 
         if (!$this->exist($key)) {
+
             return true;
         }
 
-        return false;
+        unset($_SESSION[$key]);
+
+        return true;
     }
 }

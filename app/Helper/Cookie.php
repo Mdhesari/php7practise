@@ -32,7 +32,7 @@ class Cookie implements Repository
     public function set(string $key, $value, $time = "+30 days"): bool
     {
 
-        setcookie($key, $value, strtotime($time));
+        setcookie($key, $value, strtotime($time), '/');
 
         return $this->exist($key);
     }
@@ -63,12 +63,14 @@ class Cookie implements Repository
      */
     public function forget(string $key): bool
     {
-        unset($key);
 
         if (!$this->exist($key)) {
+
             return true;
         }
 
-        return false;
+        setcookie('remember_token', '', '-1','/');
+
+        return true;
     }
 }
