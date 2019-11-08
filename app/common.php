@@ -45,7 +45,7 @@ if (!function_exists('redirect_back')) {
     function redirect_back()
     {
 
-        redirect(\App\Application\Session::get('last_url'));
+        redirect(\App\Helper\Session::get('last_url'));
     }
 }
 
@@ -70,6 +70,42 @@ if (!function_exists('old')) {
     {
         return isset($_POST[$key]) ? $_POST[$key] : '';
     }
+}
+
+function session($key = null, $value = null, $time = "+30 days")
+{
+
+    $session = new \App\Helper\Session;
+
+    if (is_null($key)) {
+
+        return $session;
+    }
+
+    if (is_null($value)) {
+
+        return $session->get($key);
+    }
+
+    return $session->set($key, $value, $time = "+30 days");
+}
+
+function cookie($key = null, $value = null, $time = "+30 days")
+{
+
+    $cookie = new \App\Helper\Cookie;
+
+    if (is_null($key)) {
+
+        return $cookie;
+    }
+
+    if (is_null($value)) {
+
+        return $cookie->get($key);
+    }
+
+    return $cookie->set($key, $value, $time);
 }
 
 function request($field = null, $post = true)

@@ -66,7 +66,7 @@ class Users extends Controller
                 $remember = false;
 
                 if (!empty(request('remember'))) {
-                    $remember = true;
+                    $remember = true ;
                 }
 
 

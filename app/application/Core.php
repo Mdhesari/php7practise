@@ -3,7 +3,7 @@
 namespace App\Application;
 
 use App\Model\DB;
-use App\Application\Session;
+use App\Helper\Session;
 
 class Core extends DB
 {
@@ -87,6 +87,6 @@ class Core extends DB
 
     public static function end()
     {
-        Session::add('last_url', get_current_url());
+        cookie('last_url', get_current_url());
     }
 }
