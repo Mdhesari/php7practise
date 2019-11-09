@@ -13,6 +13,12 @@ class Users extends Controller
 
     public function __construct()
     {
+
+        if (auth()->check()) {
+
+            redirect();
+        }
+
         $this->user = new User;
     }
 
@@ -23,10 +29,6 @@ class Users extends Controller
      */
     public function register()
     {
-        if (auth()->check()) {
-
-            redirect();
-        }
 
         if (request()->isPost()) {
 
@@ -44,11 +46,6 @@ class Users extends Controller
      */
     public function success()
     {
-
-        if (auth()->check()) {
-
-            redirect();
-        }
         $this->view('success');
     }
 
@@ -72,11 +69,6 @@ class Users extends Controller
      */
     public function login()
     {
-
-        if (auth()->check()) {
-
-            redirect();
-        }
 
         if (request()->isPost()) {
 

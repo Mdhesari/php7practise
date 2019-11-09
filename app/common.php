@@ -37,6 +37,7 @@ if (!function_exists('redirect')) {
         }
 
         header('Location: ' . $url);
+        die;
     }
 }
 
@@ -127,7 +128,8 @@ function print_array($errors)
     }
 }
 
-function auth(){
+function auth()
+{
 
     return new App\Helper\Auth;
 }
@@ -144,4 +146,3 @@ function myrandom($length = 16)
 
     return $str;
 }
-
