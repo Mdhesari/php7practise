@@ -34,8 +34,16 @@
                 <ul class="nav navbar-nav">
                     <?php if (auth()->check()) : ?>
                         <li>
-                            <a class="btn" href="<?php echo URL_ROOT; ?>/users/logout"> خروج از حساب کاربری   <span>(<?php echo auth()->user()->name; ?>)</span></a>
+                            <a class="btn" href="<?php echo URL_ROOT; ?>/users/logout"> خروج از حساب کاربری <span>(<?php echo auth()->user()->name; ?>)</span></a>
                         </li>
+                        <li>
+                            <a href="<?php echo URL_ROOT; ?>/dashboard">پنل کاربری</a>
+                        </li>
+                        <?php if ((auth()->user())->type === \APP\Controller\Controller::ADMIN_USER) : ?>
+                            <li>
+                                <a href="<?php echo URL_ROOT; ?>/admin">مدیریت</a>
+                            </li>
+                        <?php endif; ?>
                     <?php else : ?>
                         <li>
                             <a href="<?php echo URL_ROOT; ?>/users/login">ورود</a>

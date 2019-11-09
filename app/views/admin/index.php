@@ -7,7 +7,7 @@
 
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading">اطلاعات کاربری من</div>
+                <div class="panel-heading">اطلاعات کاربران</div>
 
                 <!-- Table -->
                 <table class="table">
@@ -20,23 +20,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <?php echo $user->name; ?>
-                            </td>
-
-                            <td>
-                                <?php echo $user->email; ?>
-                            </td>
-
-                            <td>
-                                <?php echo $user->email_verified_at === null ? 'تایید نشده است.' : 'تایید شده است.'; ?>
-                            </td>
-
-                            <td>
-                                <?php echo get_user_type($user->type); ?>
-                            </td>
-                        </tr>
+                        <?php foreach ($users as $user) : ?>
+                            <tr>
+                                <td>
+                                    <?php echo $user->name; ?>
+                                </td>
+                                <td>
+                                    <?php echo $user->email; ?>
+                                </td>
+                                <td>
+                                    <?php echo $user->email_verified_at === null ? 'تایید نشده است.' : 'تایید شده است.'; ?>
+                                </td>
+                                <td>
+                                    <?php echo get_user_type($user->type); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -45,7 +44,7 @@
 
         <section class="articles">
 
-            <h3>مقاله های من</h3>
+            <h3>مقاله ها</h3>
 
             <div class="row">
                 <div class="col-sm-6 col-md-4">

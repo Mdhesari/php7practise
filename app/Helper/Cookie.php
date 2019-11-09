@@ -32,7 +32,11 @@ class Cookie implements Repository
     public function set(string $key, $value, $time = "+30 days"): bool
     {
 
-        setcookie($key, $value, strtotime($time), '/');
+        try {
+
+            setcookie($key, $value, strtotime($time), '/');
+            
+        } catch (\Exception $err) { }
 
         return $this->exist($key);
     }

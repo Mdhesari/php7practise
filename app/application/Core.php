@@ -91,6 +91,6 @@ class Core extends DB
      */
     public static function end()
     {
-        cookie('last_url', get_current_url());
+        session('last_url', get_current_url());
     }
 }

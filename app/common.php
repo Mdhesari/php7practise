@@ -1,5 +1,7 @@
 <?php
 
+use App\Controller\Controller;
+
 if (!function_exists('dd')) {
     function dd($var = null)
     {
@@ -143,6 +145,22 @@ function myrandom($length = 16)
     $bytes = str_replace(['/', '+', '='], '', $bytes);
 
     $str .= substr($bytes, 0, $length);
+
+    return $str;
+}
+
+function get_user_type($type)
+{
+
+    $str = '';
+
+    switch ($type) {
+        case CONTROLLER::ADMIN_USER:
+            $str = "ادمین";
+            break;
+        default:
+            $str = "معمولی";
+    }
 
     return $str;
 }

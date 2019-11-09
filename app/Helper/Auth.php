@@ -85,7 +85,7 @@ class Auth implements AuthInterface
 
                     session('email', $data->email);
                 }
-                
+
                 return true;
             }
         }

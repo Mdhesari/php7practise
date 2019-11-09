@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Controller\Controller;
+use App\Model\User;
 
-class Dashboard extends Controller
+class Admin extends Controller
 {
 
-    private $user;
+    protected $user;
 
     public function __construct()
     {
@@ -17,14 +18,18 @@ class Dashboard extends Controller
         }
 
         $this->user = auth()->user();
+
+        if ($this->user->type !== self::ADMIN_USER) {
+
+            redirect();
+        }
     }
 
     public function index(): void
     {
 
-        //
-        $user = $this->user;
+        $users = (new User)->all();
 
-        $this->view('index', compact('user'));
+        $this->view('index', compact('users'));
     }
 }

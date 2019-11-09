@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
-    class Controller
+class Controller
 {
+
+    public const ADMIN_USER = 'admin';
+
+    public const REGULAR_USER = 'regular';
+
     /**
      * database variable
      * 
