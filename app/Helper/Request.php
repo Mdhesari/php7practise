@@ -7,6 +7,14 @@ use App\Application\Contracts\Request as RequestInteface;
 class Request implements RequestInteface
 {
 
+    /**
+     * input
+     *
+     * @param  mixed $field
+     * @param  mixed $post
+     *
+     * @return void
+     */
     public function input(string $field, bool $post = true)
     {
 
@@ -15,6 +23,13 @@ class Request implements RequestInteface
         return isset($arr[$field]) ? htmlspecialchars($arr[$field]) : "";
     }
 
+    /**
+     * all
+     *
+     * @param  mixed $post
+     *
+     * @return array
+     */
     public function all(bool $post = true): array
     {
         $arr = $this->getTypeArr($post);
@@ -22,11 +37,23 @@ class Request implements RequestInteface
         return array_map('htmlspecialchars', $arr);
     }
 
+    /**
+     * isPost
+     *
+     * @return bool
+     */
     public function isPost(): bool
     {
         return $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 
+    /**
+     * getTypeArr
+     *
+     * @param  mixed $post
+     *
+     * @return array
+     */
     private function getTypeArr(bool $post = true): array
     {
         $arr = [];
