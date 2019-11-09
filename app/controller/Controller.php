@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-use App\Model\DB;
-
-
-class Controller
+    class Controller
 {
-
     /**
      * database variable
      * 
-     * @var object
+     * @return void
      */
 
     public function index(): void
@@ -20,6 +16,14 @@ class Controller
         $this->view('index');
     }
 
+    /**
+     * view
+     *
+     * @param  string $location
+     * @param  array $data
+     *
+     * @return void
+     */
     public function view(string $location, array $data = []): void
     {
 
@@ -54,6 +58,11 @@ class Controller
         }
     }
 
+    /**
+     * getCalledClassName
+     *
+     * @return string
+     */
     private function getCalledClassName(): string
     {
         $class_name = \explode('\\', \get_called_class());
