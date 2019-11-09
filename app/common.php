@@ -11,14 +11,14 @@ if (!function_exists('dd')) {
 if (!function_exists('get_head')) {
     function get_head()
     {
-        include_once __DIR__ . './views/inc/header.php';
+        include __DIR__ . './views/inc/header.php';
     }
 }
 
 if (!function_exists('get_footer')) {
     function get_footer()
     {
-        include_once __DIR__ . './views/inc/footer.php';
+        include __DIR__ . './views/inc/footer.php';
     }
 }
 

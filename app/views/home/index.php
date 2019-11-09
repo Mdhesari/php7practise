@@ -12,7 +12,7 @@
         <section>
             <div class="btn-group">
                 <?php if (auth()->check()) : ?>
-                <a href="<?php echo URL_ROOT; ?>/users/dashboard" class="btn btn-primary">پنل کاربری</a>
+                <a href="<?php echo URL_ROOT; ?>/dashboard" class="btn btn-primary">پنل کاربری</a>
                 <?php else : ?>
                     <a href="<?php echo URL_ROOT; ?>/users/login" class="btn btn-secondary">ورود</a>
                     <a href="<?php echo URL_ROOT; ?>/users/register" class="btn btn-secondary">ثبت نام</a>

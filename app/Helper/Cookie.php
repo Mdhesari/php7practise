@@ -69,7 +69,7 @@ class Cookie implements Repository
             return true;
         }
 
-        setcookie('remember_token', '', '-1','/');
+        setcookie('remember_token', '', '-1', '/');
 
         return true;
     }
