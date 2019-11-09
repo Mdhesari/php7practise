@@ -14,6 +14,14 @@ class Validation
 
     private $errors;
 
+    /**
+     * make
+     *
+     * @param  mixed $data
+     * @param  mixed $rules
+     *
+     * @return bool
+     */
     public function make(array $data, array $rules): bool
     {
         $this->data = $data;
@@ -62,11 +70,24 @@ class Validation
         return $valid;
     }
 
+    /**
+     * getErrors
+     *
+     * @return void
+     */
     public function getErrors()
     {
         return $this->errors;
     }
 
+    /**
+     * generateError
+     *
+     * @param  mixed $item
+     * @param  mixed $message
+     *
+     * @return void
+     */
     protected function generateError($item, $message = "%s")
     {
         $this->errors[$item][] = sprintf($message, $item);
@@ -95,6 +116,15 @@ class Validation
         return true;
     }
 
+    /**
+     * mustExist
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     * @param  mixed $param
+     *
+     * @return void
+     */
     private function mustExist($item, $value, $param)
     {
         $table = $this->__set__table__key($item, $param);
@@ -124,6 +154,15 @@ class Validation
         return true;
     }
 
+    /**
+     * min
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     * @param  mixed $param
+     *
+     * @return void
+     */
     private function min($item, $value, $param)
     {
         if (strlen($value) < $param) {
@@ -135,6 +174,15 @@ class Validation
         return true;
     }
 
+    /**
+     * max
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     * @param  mixed $param
+     *
+     * @return void
+     */
     private function max($item, $value, $param)
     {
         if (strlen($value) > $param) {
@@ -146,6 +194,14 @@ class Validation
         return true;
     }
 
+    /**
+     * __set__table__key
+     *
+     * @param  mixed $item
+     * @param  mixed $param
+     *
+     * @return void
+     */
     private function __set__table__key(&$item, &$param)
     {
         $table = "";
@@ -162,6 +218,15 @@ class Validation
     }
 
 
+    /**
+     * confirm
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     * @param  mixed $param
+     *
+     * @return void
+     */
     private function confirm($item, $value, $param)
     {
 
@@ -177,6 +242,14 @@ class Validation
         return true;
     }
 
+    /**
+     * emailnumber
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     *
+     * @return void
+     */
     private function emailnumber($item, $value)
     {
         if ($this->email($item, $value) || $this->number($item, $value)) {
@@ -188,6 +261,14 @@ class Validation
         return false;
     }
 
+    /**
+     * email
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     *
+     * @return void
+     */
     private function email($item, $value)
     {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
@@ -198,6 +279,14 @@ class Validation
         return true;
     }
 
+    /**
+     * number
+     *
+     * @param  mixed $item
+     * @param  mixed $value
+     *
+     * @return void
+     */
     private function number($item, $value)
     {
 

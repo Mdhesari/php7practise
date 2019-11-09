@@ -3,7 +3,6 @@
 namespace App\Application;
 
 use App\Model\DB;
-use App\Helper\Session;
 
 class Core extends DB
 {
@@ -85,6 +84,11 @@ class Core extends DB
         return [];
     }
 
+    /**
+     * end
+     *
+     * @return void
+     */
     public static function end()
     {
         cookie('last_url', get_current_url());
