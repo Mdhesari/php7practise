@@ -9,35 +9,41 @@
                 <!-- Default panel contents -->
                 <div class="panel-heading">اطلاعات کاربران</div>
 
-                <!-- Table -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>نام</th>
-                            <th>ایمیل</th>
-                            <th>وضعیت حساب کاربری</th>
-                            <th>نوع حساب کاربری</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($users as $user) : ?>
+                <?php if (count($users) > 0) : ?>
+                    <!-- Table -->
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    <?php echo $user->name; ?>
-                                </td>
-                                <td>
-                                    <?php echo $user->email; ?>
-                                </td>
-                                <td>
-                                    <?php echo $user->email_verified_at === null ? 'تایید نشده است.' : 'تایید شده است.'; ?>
-                                </td>
-                                <td>
-                                    <?php echo get_user_type($user->type); ?>
-                                </td>
+                                <th>نام</th>
+                                <th>ایمیل</th>
+                                <th>وضعیت حساب کاربری</th>
+                                <th>نوع حساب کاربری</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($users as $user) : ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $user->name; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $user->email; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $user->email_verified_at === null ? 'تایید نشده است.' : 'تایید شده است.'; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo get_user_type($user->type); ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                <div class="alert alert-warning">
+                    هیچ کاربری وجود ندارد.
+                </div>
+                <?php endif; ?>
             </div>
 
         </section>
