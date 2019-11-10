@@ -164,3 +164,97 @@ function get_user_type($type)
 
     return $str;
 }
+
+function slugify($string)
+{
+
+    $string = translate_persian($string);
+
+    $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+    return $slug;
+}
+
+function translate_persian($string)
+{
+
+    $search = [
+
+
+        'آ',
+        'ا',
+        'ب',
+        'پ',
+        'ت',
+        'ث',
+        'ج',
+        'چ',
+        'ح',
+        'خ',
+        'د',
+        'ذ',
+        'ر',
+        'ز',
+        'ژ',
+        'س',
+        'ش',
+        'ص',
+        'ض',
+        'ط',
+        'ظ',
+        'ع',
+        'غ',
+        'ف',
+        'ق',
+        'ک',
+        'گ',
+        'ل',
+        'م',
+        'ن',
+        'و',
+        'ه',
+        'ی',
+
+
+    ];
+
+    $replace = [
+
+        'a',
+        'i',
+        'b',
+        'p',
+        't',
+        's',
+        'j',
+        'ch',
+        'h',
+        'kh',
+        'd',
+        'z',
+        'r',
+        'z',
+        'zh',
+        's',
+        'sh',
+        's',
+        'z',
+        't',
+        'z',
+        'e',
+        'q',
+        'f',
+        'gh',
+        'k',
+        'g',
+        'l',
+        'm',
+        'n',
+        'v',
+        'y',
+
+    ];
+
+    $string = str_replace($search, $replace, $string);
+
+    return $string;
+}

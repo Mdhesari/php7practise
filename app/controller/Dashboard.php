@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Controller\Controller;
 
+use App\Model\Article;
+
 class Dashboard extends Controller
 {
 
@@ -25,6 +27,8 @@ class Dashboard extends Controller
         //
         $user = $this->user;
 
-        $this->view('index', compact('user'));
+        $articles = (new Article)->where('user_id', $user->id)->all();
+
+        $this->view('index', compact('user', 'articles'));
     }
 }
