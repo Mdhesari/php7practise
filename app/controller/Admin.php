@@ -25,7 +25,7 @@ class Admin extends Controller
         }
     }
 
-    public function index(): void
+    public function index()
     {
 
         $users = (new User)->all();

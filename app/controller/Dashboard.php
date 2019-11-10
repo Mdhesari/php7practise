@@ -19,7 +19,7 @@ class Dashboard extends Controller
         $this->user = auth()->user();
     }
 
-    public function index(): void
+    public function index()
     {
 
         //

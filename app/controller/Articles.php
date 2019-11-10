@@ -20,7 +20,7 @@ class Articles extends Controller
         $this->article = new Article;
     }
 
-    public function index(): void
+    public function index()
     {
         $articles = $this->article->all();
 

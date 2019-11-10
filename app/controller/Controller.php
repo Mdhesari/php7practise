@@ -15,7 +15,7 @@ class Controller
      * @return void
      */
 
-    public function index(): void
+    public function index()
     {
 
         $this->view('index');
