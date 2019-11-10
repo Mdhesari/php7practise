@@ -322,6 +322,8 @@ class DB
             return false;
         }
 
+        $this->query = [];
+
         $this->query[] = "UPDATE";
 
         $this->query[] = $this->table;
