@@ -80,6 +80,9 @@ class Users extends Controller
     }
 
     /**
+     * =========================== PRIVATES ========================
+     */
+    /**
      * authorize
      *
      * @return void
@@ -202,4 +205,5 @@ class Users extends Controller
             $this->view('register');
         }
     }
+
 }

@@ -299,7 +299,7 @@ class DB
         return $this->done();
     }
 
-    private function fieldsForUpdate($data = [])
+    private function fieldsForAction($data = [])
     {
 
         $fields = [];
@@ -330,7 +330,7 @@ class DB
 
         $this->query[] = "SET";
 
-        $fields = $this->fieldsForUpdate($data);
+        $fields = $this->fieldsForAction($data);
 
         $this->query[] = $fields;
 
@@ -340,6 +340,33 @@ class DB
         } else {
 
             throw new Exception('No where clause on update db!');
+        }
+
+        $this->query = join(' ', $this->query);
+
+        $this->stmt = $this->pdo->prepare($this->query);
+
+        $this->bindValues();
+
+        return $this->done();
+    }
+
+    public function delete()
+    {
+
+        $this->query = [];
+
+        $this->query[] = "DELETE";
+        $this->query[] = "FROM";
+
+        $this->query[] = $this->table;
+
+        if (!empty($this->where_clause)) {
+
+            $this->addWhereToQuery();
+        } else {
+
+            throw new Exception('No where clause on delete db!');
         }
 
         $this->query = join(' ', $this->query);
@@ -369,6 +396,7 @@ class DB
 
     private function done()
     {
+        $this->where_clause = [];
         return $this->stmt->execute();
     }
 

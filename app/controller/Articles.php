@@ -29,12 +29,50 @@ class Articles extends Controller
         $this->view('index', compact('articles'));
     }
 
+    public function delete($id)
+    {
+
+        if (request()->isPost()) {
+
+            $article = $this->article->find('id', $id);
+
+            if ($article) {
+
+                if (auth()->user()->id == $article->user_id) {
+
+                    $deleted = $this->article->where('id', $id)->delete();
+
+                    if ($deleted) {
+
+                        flashMessage()->success('مقاله مورد نظر شما با موفقیت حذف گردید.');
+                        redirect_back();
+                        return;
+                    }
+
+                    flashMessage()->error('مشکلی در حذف مقاله بوجود آمده است.');
+                    redirect();
+                } else {
+
+                    flashMessage()->error('شما مجاز به حذف این مقاله نیستید.');
+                    redirect();
+                }
+            } else {
+
+                flashMessage()->error('مقاله مورد نظر شما موجود نمیباشد.');
+                redirect();
+            }
+        } else {
+
+            redirect();
+        }
+    }
+
     public function show($slug)
     {
 
         $article = $this->article->find('slug', $slug);
 
-        if(!$article){
+        if (!$article) {
 
             redirect();
         }
@@ -74,12 +112,12 @@ class Articles extends Controller
 
                     flashMessage()->success('مقاله با موفقیت انتشار شد.');
 
-                    redirect('/dashboard',true);
+                    redirect('/dashboard', true);
                 } else {
 
                     flashMessage()->error('مشکلی در انتشار مقاله بوجود آمده است.');
 
-                    redirect('/articles/create',true);
+                    redirect('/articles/create', true);
                 }
             } else {
                 // user's data is not validated
