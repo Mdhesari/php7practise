@@ -34,6 +34,11 @@ class Articles extends Controller
 
         $article = $this->article->find('slug', $slug);
 
+        if(!$article){
+
+            redirect();
+        }
+
         $this->view('single', compact('article'));
     }
 
@@ -69,12 +74,12 @@ class Articles extends Controller
 
                     flashMessage()->success('مقاله با موفقیت انتشار شد.');
 
-                    redirect('dashboard');
+                    redirect('/dashboard',true);
                 } else {
 
                     flashMessage()->error('مشکلی در انتشار مقاله بوجود آمده است.');
 
-                    redirect('articles/create');
+                    redirect('/articles/create',true);
                 }
             } else {
                 // user's data is not validated

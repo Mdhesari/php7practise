@@ -38,7 +38,7 @@ class DB
     public function __destruct()
     {
         $this->pdo = null;
-        }
+    }
 
     private function setupClass()
     {

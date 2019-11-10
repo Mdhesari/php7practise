@@ -6,7 +6,7 @@
             <h1>
                 <?php echo $article->title; ?>
             </h1>
-            <div class="meta mt-1">
+            <div class="meta my-2">
                 <span> <?php echo $article->created_at; ?> </span>
             </div>
         </div>

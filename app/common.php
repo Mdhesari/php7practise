@@ -28,14 +28,16 @@ if (!function_exists('redirect')) {
     function redirect($url = URL_ROOT, $from_root = false)
     {
         if ($from_root !== false) {
+
             $url = URL_ROOT . $url;
-        }
+        } else {
 
-        $pattern = "/^htt(p|s):\/\//i";
+            $pattern = "/^htt(p|s):\/\//i";
 
-        if (!preg_match($pattern, $url)) {
+            if (!preg_match($pattern, $url)) {
 
-            $url = "http://" . $url;
+                $url = "http://" . $url;
+            }
         }
 
         header('Location: ' . $url);

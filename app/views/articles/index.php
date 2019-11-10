@@ -5,7 +5,12 @@
 
         <section class="articles">
 
-            <h3>مقاله ها</h3>
+            <div class="my-3">
+                <h3>مقاله ها</h3>
+
+                <a class="btn btn-primary" href="<?php echo URL_ROOT; ?>/articles/create">ارسال مقاله جدید</a>
+
+            </div>
 
             <?php if (count($articles) > 0) : ?>
 
@@ -24,7 +29,7 @@
                                         <?php echo $article->body; ?>
                                     </p>
 
-                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                    <p><a href="<?php echo URL_ROOT; ?>/articles/show/<?php echo $article->slug; ?>" class="btn btn-outline-primary" role="button">ادامه مطلب</a></p>
                                 </div>
                             </div>
                         </div>
