@@ -2,6 +2,11 @@
 
 <main>
     <div class="container">
+
+    <?php if (flashMessage()->hasMessages()) : ?>
+            <?php echo flashMessage()->display(); ?>
+        <?php endif; ?>
+
         <div class="jumbotron">
             <h1>
                 <?php echo $article->title; ?>

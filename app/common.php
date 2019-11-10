@@ -260,3 +260,9 @@ function translate_persian($string)
 
     return $string;
 }
+
+function checkAdmin()
+{
+
+    return (auth()->user())->type === \APP\Controller\Controller::ADMIN_USER;
+}

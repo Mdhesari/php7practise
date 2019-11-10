@@ -48,7 +48,7 @@
 
         </section>
 
-        <section class="articles">
+        <!-- <section class="articles">
 
             <h3>مقاله ها</h3>
 
@@ -66,7 +66,7 @@
             </div>
 
 
-        </section>
+        </section> -->
 
     </div>
 </main>

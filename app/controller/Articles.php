@@ -67,6 +67,93 @@ class Articles extends Controller
         }
     }
 
+    public function edit($id)
+    {
+
+        $article = $this->article->find('id', $id);
+
+        if (!$article) {
+
+            redirect();
+        }
+
+        if (auth()->user()->id != $article->user_id) {
+
+            redirect();
+        }
+
+        $this->view('edit', compact('article'));
+    }
+
+    public function update($id)
+    {
+
+        if (request()->isPost()) {
+            $article = $this->article->find('id', $id);
+
+            if (!$article) {
+
+                redirect();
+            }
+
+            if (auth()->user()->id != $article->user_id) {
+
+                redirect();
+            }
+
+            $rules = [
+                'title' => 'required',
+                'description' => 'required|min:10',
+            ];
+
+            $validation = new Validation();
+
+            $is_valid = $validation->make(request()->all(), $rules);
+
+            if ($is_valid) {
+                // need to authroize by password
+
+                $slug = slugify(request('title'));
+
+                $updated = $this->article->where('id', $id)->update([
+                    'title' => request('title'),
+                    'body' => request('description'),
+                    'slug' => $slug,
+                    'updated_at' => Carbon::now(),
+                ]);
+
+                if ($updated) {
+
+                    flashMessage()->success('مقاله با موفقیت بروزرسانی شد.');
+
+                    redirect('/articles/show/' . $slug, true);
+                } else {
+
+                    flashMessage()->error('مشکلی در انتشار مقاله بوجود آمده است.');
+
+                    redirect('/articles/update/' . $id, true);
+                }
+            } else {
+                // user's data is not validated
+                $errors = $validation->getErrors();
+                $error_text = "";
+
+                foreach ($errors as $errors_item) {
+                    foreach ($errors_item as $error) {
+                        if (is_string($error))
+                            $error_text .= $error . "<br>";
+                    }
+                }
+
+                flashMessage()->error($error_text);
+                $this->view('create');
+            }
+        } else {
+
+            redirect();
+        }
+    }
+
     public function show($slug)
     {
 

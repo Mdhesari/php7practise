@@ -3,6 +3,10 @@
 <main>
     <div class="container">
 
+        <?php if (flashMessage()->hasMessages()) : ?>
+            <?php echo flashMessage()->display(); ?>
+        <?php endif; ?>
+
         <section class="articles">
 
             <div class="my-3">

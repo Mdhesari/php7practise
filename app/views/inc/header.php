@@ -39,7 +39,7 @@
                         <li>
                             <a href="<?php echo URL_ROOT; ?>/dashboard">پنل کاربری</a>
                         </li>
-                        <?php if ((auth()->user())->type === \APP\Controller\Controller::ADMIN_USER) : ?>
+                        <?php if (checkAdmin()) : ?>
                             <li>
                                 <a href="<?php echo URL_ROOT; ?>/admin">مدیریت</a>
                             </li>
