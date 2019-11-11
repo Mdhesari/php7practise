@@ -11,6 +11,11 @@ class Dashboard extends Controller
 
     private $user;
 
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         if (!auth()->check()) {
@@ -21,6 +26,11 @@ class Dashboard extends Controller
         $this->user = auth()->user();
     }
 
+    /**
+     * index
+     *
+     * @return void
+     */
     public function index()
     {
 
@@ -30,5 +40,18 @@ class Dashboard extends Controller
         $articles = (new Article)->where('user_id', $user->id)->all();
 
         $this->view('index', compact('user', 'articles'));
+    }
+
+    /**
+     * logout
+     *
+     * @return void
+     */
+    public function logout()
+    {
+
+        auth()->logout();
+
+        redirect();
     }
 }

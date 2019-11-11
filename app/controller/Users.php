@@ -50,19 +50,6 @@ class Users extends Controller
     }
 
     /**
-     * logout
-     *
-     * @return void
-     */
-    public function logout()
-    {
-
-        auth()->logout();
-
-        redirect();
-    }
-
-    /**
      * 
      *
      * @return void

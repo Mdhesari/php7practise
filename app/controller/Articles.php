@@ -22,6 +22,11 @@ class Articles extends Controller
         $this->article = new Article;
     }
 
+    /**
+     * index
+     *
+     * @return void
+     */
     public function index()
     {
         $articles = $this->article->all();
@@ -29,6 +34,13 @@ class Articles extends Controller
         $this->view('index', compact('articles'));
     }
 
+    /**
+     * delete
+     *
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function delete($id)
     {
 
@@ -67,6 +79,13 @@ class Articles extends Controller
         }
     }
 
+    /**
+     * edit
+     *
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function edit($id)
     {
 
@@ -85,6 +104,13 @@ class Articles extends Controller
         $this->view('edit', compact('article'));
     }
 
+    /**
+     * update
+     *
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function update($id)
     {
 
@@ -154,6 +180,13 @@ class Articles extends Controller
         }
     }
 
+    /**
+     * show
+     *
+     * @param  mixed $slug
+     *
+     * @return void
+     */
     public function show($slug)
     {
 
@@ -167,6 +200,11 @@ class Articles extends Controller
         $this->view('single', compact('article'));
     }
 
+    /**
+     * create
+     *
+     * @return void
+     */
     public function create()
     {
 
