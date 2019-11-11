@@ -50,6 +50,8 @@ class Dashboard extends Controller
     public function logout()
     {
 
+        flashMessage()->success('با موفقیت از حساب کاربری خود خارج شدید.');
+
         auth()->logout();
 
         redirect();

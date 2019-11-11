@@ -57,7 +57,7 @@
                         <div class="thumbnail">
                             <div class="caption">
                                 <h3><?php echo $article->title; ?></h3>
-                                <p><?php echo $article->body; ?> </p>
+                                <p> <?php echo blog_excerpt($article->body); ?> </p>
                                 <p><a href="<?php echo URL_ROOT; ?>/articles/show/<?php echo $article->slug; ?>" class="btn btn-primary" role="button">ادامه مطلب</a></p>
                             </div>
                         </div>

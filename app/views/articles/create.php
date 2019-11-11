@@ -31,9 +31,7 @@
 
                 <label for="description">متن</label>
 
-                <textarea name="description" id="text" rows="10">
-
-                </textarea>
+                <textarea name="description" id="text" rows="10"></textarea>
             </div>
 
             <input class="btn btn-success" type="submit" value="ارسال">

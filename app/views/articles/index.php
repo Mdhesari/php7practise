@@ -1,4 +1,8 @@
-<?php get_head(); ?>
+<?php 
+
+use \Morilog\Jalali\Jalalian;
+
+get_head(); ?>
 
 <main>
     <div class="container">
@@ -30,8 +34,12 @@
                                         <?php echo $article->title; ?>
                                     </h3>
                                     <p>
-                                        <?php echo $article->body; ?>
+                                        <?php echo blog_excerpt($article->body); ?>
                                     </p>
+                                    <div class="meta">
+                                        <strong>انتشار شده در</strong>
+                                        <?php echo Jalalian::forge($article->created_at)->ago(); ?>
+                                    </div>
 
                                     <p><a href="<?php echo URL_ROOT; ?>/articles/show/<?php echo $article->slug; ?>" class="btn btn-outline-primary" role="button">ادامه مطلب</a></p>
                                 </div>

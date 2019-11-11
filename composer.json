@@ -14,6 +14,7 @@
     },
     "require": {
         "plasticbrain/php-flash-messages": "^1.0",
-        "nesbot/carbon": "^2.26"
+        "nesbot/carbon": "^2.26",
+        "morilog/jalali": "^3.1"
     }
 }

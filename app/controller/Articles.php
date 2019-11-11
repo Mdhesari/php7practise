@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Controller;
 use App\Model\Article;
+use App\Model\User;
 use Carbon\Carbon;
 use App\Helper\Validation;
 
@@ -197,7 +198,9 @@ class Articles extends Controller
             redirect();
         }
 
-        $this->view('single', compact('article'));
+        $author = (new User)->find('id', $article->user_id);
+
+        $this->view('single', compact('article','author'));
     }
 
     /**

@@ -266,3 +266,9 @@ function checkAdmin()
 
     return (auth()->user())->type === \APP\Controller\Controller::ADMIN_USER;
 }
+
+function blog_excerpt($text)
+{
+
+    return mb_substr($text, 0, 150);
+}

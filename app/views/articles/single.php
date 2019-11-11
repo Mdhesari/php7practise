@@ -1,9 +1,13 @@
-<?php get_head(); ?>
+<?php
+
+use \Morilog\Jalali\Jalalian;
+
+get_head(); ?>
 
 <main>
     <div class="container">
 
-    <?php if (flashMessage()->hasMessages()) : ?>
+        <?php if (flashMessage()->hasMessages()) : ?>
             <?php echo flashMessage()->display(); ?>
         <?php endif; ?>
 
@@ -12,7 +16,18 @@
                 <?php echo $article->title; ?>
             </h1>
             <div class="meta my-2">
-                <span> <?php echo $article->created_at; ?> </span>
+                <p>
+                    <strong>انتشار شده در</strong>
+                    <?php echo Jalalian::forge($article->created_at)->ago(); ?>
+                </p>
+                <p>
+                    <strong>بروز رسانی شده در</strong>
+                    <?php echo Jalalian::forge($article->updated_at)->ago(); ?>
+                </p>
+                <p>
+                    <strong>نویسنده</strong>
+                    <span> <?php echo $author->name; ?> </span>
+                </p>
             </div>
         </div>
 
