@@ -130,7 +130,7 @@ class Validation
         $table = $this->__set__table__key($item, $param);
 
         $db = new DB;
-        $user_found = $db->from($table)->find($item, $value);
+        $user_found = $db->from((string) $table)->find($item, $value);
         if ($user_found === false) {
             $this->generateError($item, 'شما هنوز ثبت نام نکرده اید! %s شما در سیستم موجود نیست.');
             return false;
@@ -145,7 +145,7 @@ class Validation
         $table = $this->__set__table__key($item, $param);
 
         $db = new DB;
-        $user_found = $db->from($table)->find($item, $value);
+        $user_found = $db->from((string) $table)->find($item, $value);
         if ($user_found !== false) {
             $this->generateError($item, 'قبلا یک حساب کاربری با این %s ساخته شده است.');
             return false;
